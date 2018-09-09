@@ -1,0 +1,42 @@
+<%- include('../_layouts/adminheader')%>
+
+
+<h2 class="page-title">Pages</h2>
+<a href="/admin/products/add" class="btn btn-primary">Add a product</a><br><br><br><br>
+<!-- Form to add pages -->
+<%if(count>0){%>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Price</th>
+      <th scope="col">Category</th>
+      <th scope="col">Product Image</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% products.forEach((product)=>{ %>
+    <tr>
+      <th scope="row"><%= product.title %></th>
+      <th scope="row">$<%= parseFloat(product.price).toFixed(2) %></th>
+      <th scope="row"><%= product.category %></th>
+      <th scope="row">
+        <% if(product.image=="") {%>
+          <img src="images/noimage.png" alt="">
+        <%} else{%>
+          <img src="/product_images/<%= product._id%>/<%= product.image%>" alt="" width="50" height="50">
+          <%}%>
+        </th>
+      <td><a href="/admin/products/edit/<%=product._id%>" class="btn btn-warning btn-sm">Edit</a></td>
+      <td><a href="/admin/products/delete/<%=product._id%>" class="btn btn-danger btn-sm" id="delete-button">Delete</a></td>
+    </tr>
+    <%});%>
+  </tbody>
+</table>
+<%} else{%>
+<h3 class="text-center">There is no product in this list</h3>
+<%}%>
+
+<%- include('../_layouts/adminfooter') %>
